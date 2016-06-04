@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <h1>Facebook V: Predicting Check Ins</h1>
+    <h2>Data Visualization on a subset</h2>
+    <link href="font/digital7.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+<figure id='checkin' style="clear:both;float:left;position:relative;width:400px;height:400px;background-image:url('img/bg.png');"></figure>
+<div style="margin-top:16px;float:left;width:195px">
+<div style="background-color:#827fb2;border-radius:6px;width:100%;padding:5px;">
+  <div style="background-color:#0b083b;border:2px solid white;border-radius:4px;font-family:digital7;font-size:60px;color:white;display:table;margin:15px auto;line-height:60px;padding:4px 8px;">
+  <span id="min">20</span>:<span id="sec">00</span>
+  </div>
+</div>
+<div style="padding-top:30px"><a id="start" href="#">Click hear to start</a></div>
+</div>
+<div style="clear:both">
+  
+  <!--[if lt IE 9]><script src="js/excanvas.min.js"></script><![endif]-->
+  
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="js/heatmap-mod.js"></script>
+    <script>
+
+window.onload = function () {
+  
+  
+var data = [
+    { accuracy: 1.7, time: 0.85,  x: 1.2214, y: 2.7023},
+    { accuracy: 5.8, time: 1.22,  x: 1.1832, y: 2.6891},
+    { accuracy: 1.1, time: 1.65,  x: 1.1935, y: 2.6550},
+    { accuracy: 4.9, time: 2.32,  x: 1.1452, y: 2.7287},
+    { accuracy: 1.9, time: 2.90,  x: 1.0089,  y: 2.6262},
+    { accuracy: 1.1, time: 3.18,  x: 1.1140, y: 2.5003}
+];
+
+var height = $("#checkin").height();
+var width  = $("#checkin").width();
+checkin = h337.create({
+    element: "checkin",
+    radius: 30,
+    opacity: 50
+});
+
+dataset = {};
+dataset.max = 3;
+dataset.data = [];
+checkin.store.setDataSet(dataset);
+
+function pad(n) {
+  if (n<0) n = 0;
+  return (n > 9 ? ""+n : "0"+n);
+}
+
+var nextPoint = 0;
+function addPoint() {
+    var i = nextPoint++;
+    if ((data[i].x !== -1) && (data[i].y !== -1)) {
+        var x = Math.round(width  * data[i].x/10);
+        var y = height - Math.round(height * data[i].y/10);
+    checkin.store.augmentDataPoint(x, y, data[i].accuracy);
+    $("#checkin canvas").css("z-index", "1");
+    }
+    var time = (data[i].time > 20 ? 40 - data[i].time : 20 - data[i].time);
+    var min = Math.floor(time);
+    var sec = Math.round((time - min)*60);
+    $("#min").text(pad(min));
+    $("#sec").text(pad(sec));
+    if (nextPoint < data.length) {
+        setTimeout(addPoint, 500);
+    } else {
+        setTimeout(function() {
+            $("#min").text(pad(0));
+            $("#sec").text(pad(0));
+        }, 500);
+    }
+};
+
+$("#start").click(function(ev) {
+  ev.preventDefault();
+  addPoint();
+});
+
+};
+
+    </script>
+  </body>
+</html>

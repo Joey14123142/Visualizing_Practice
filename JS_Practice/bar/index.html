@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+
+  <body>
+
+    <div id="chart" style="width:720px;height:445px;"></div>
+
+    <!--[if lt IE 9]><script src="js/excanvas.min.js"></script><![endif]-->
+    <script src="js/flotr2.min.js"></script>
+    <script>
+
+window.onload = function () {
+
+battles = [[0,7],[1,14],[2,10],[3,5],[4,2]];
+var kings = [
+    [0, "Balon"],
+    [1, "Joffrey"],
+    [2, "Robb"],
+    [3, "Stannis"],
+    [4, "Others"],
+];
+Flotr.draw(document.getElementById("chart"),[battles], {
+  title: "Number of Battles by Attacker Kings",
+  colors: ["#abe177"],
+    bars: {
+        show: true,
+        barWidth: 0.5,
+        shadowSize: 0,
+        fillOpacity: 1,
+        lineWidth: 0,
+    },
+    yaxis: {
+        min: 0,
+        tickDecimals: 0,
+    },
+    xaxis: {
+        ticks: kings,
+    },
+    grid: {
+        horizontalLines: false,
+        verticalLines: false,
+    }
+});
+    
+};
+
+    </script>
+  </body>
+</html>
