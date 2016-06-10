@@ -1,0 +1,62 @@
+#graph {
+    float: left;
+    position: relative;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+li {
+    padding-top: 0.2em;
+}
+.node circle, circle.node {
+    cursor:       pointer;
+    fill:         #ccc;
+    stroke:       #fff;
+    stroke-width: 1px;
+}
+.edge line, line.edge {
+    cursor:       pointer;
+    stroke:       #aaa;
+    stroke-width: 2px;
+}
+.labelNode text, text.labelNode {
+    cursor:       pointer;
+    fill:        #444;
+    font-size:   11px;
+    font-weight: normal;
+}
+ul.connection {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: normal;
+    padding: 10px;
+    position: absolute;
+}
+ul.connection:before,
+ul.connection:after {
+    border: 10px solid transparent;
+    content: '';
+    position: absolute;
+}
+ul.connection:before {
+    border-bottom-color: #f0f0f0;
+    top: -19px;
+    left: 20px;
+    z-index: 2;
+}
+ul.connection:after {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    top: -21px;
+    left: 20px;
+    z-index: 1;
+}
+
+ul.connection.hidden {
+    display: none;
+}
